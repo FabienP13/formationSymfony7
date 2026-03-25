@@ -1,0 +1,56 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}Toutes les recettes
+{% endblock %}
+
+{% block body %}
+
+	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet quis architecto animi voluptatibus facilis quia qui est dolor ipsa in.</p>
+
+	<a class='btn btn-sm btn-warning' href={{ path('admin.recipe.create' )}}>Créer une recette</a>
+
+	<table class="table">
+		<thead>
+			<th>
+				{{ knp_pagination_sortable(recipes, 'ID', 'r.id')}}
+			</th>
+			<th>
+				{{ knp_pagination_sortable(recipes, 'Titre', 'r.title')}}
+			</th>
+			<th>
+				{{ knp_pagination_sortable(recipes, 'Catégorie', 'c.name')}}
+			</th>
+			<th style="width:200px">
+				Actions
+			</th>
+		</thead>
+
+		<tbody>
+			{% for recipe in recipes %}
+				<tr id="row_recipe_{{ recipe.id }}">
+					<td>
+						{{ recipe.id }}
+					</td>
+					<td>
+						<turbo-frame id="recipe_{{ recipe.id }}">
+							<a href={{ path('admin.recipe.edit', {id:recipe.id} )}}> {{ recipe.title }}</a>
+						</turbo-frame>
+					</td>
+					<td>
+						{{ recipe.category.name | default('')}}
+					</td>
+					<td class='d-flex gap-2'>
+						<a href={{ path('admin.recipe.edit', {id:recipe.id} )}} class="btn btn-sm btn-primary ml-3">{{ ux_icon('ph:note-pencil-light', {style: 'font-size:20px'}) }}</a>
+						<form action={{ path('admin.recipe.delete', {id:recipe.id} )}} method='post'>
+							<input type="hidden" name="_method" value='DELETE'>
+							<button type="submit" class="btn btn-sm btn-danger ml-3">{{ ux_icon('ph:trash', {style: 'font-size:20px'}) }}</button>
+						</form>
+
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	{{ knp_pagination_render(recipes) }}
+{% endblock %}

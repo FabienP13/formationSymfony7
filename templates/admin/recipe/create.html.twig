@@ -1,0 +1,18 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Ajoutez une nouvelle recette' %}
+
+{% block body %}
+    	<h1 class="text-center">
+		Ajoutez une nouvelle recette 
+	</h1>
+    <div class='col-6 mx-auto'>
+         {{ form_start(form) }}
+        <div class="d-flex gap-3">
+            {{ form_row(form.title) }}
+            {{ form_row(form.duration) }}
+        </div>
+    {{ form_end(form) }}
+    </div>
+   
+{% endblock %}

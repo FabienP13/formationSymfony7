@@ -1,0 +1,20 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}Ajoutez une nouvelle catégorie
+{% endblock %}
+
+{% block body %}
+
+	<h1 class='text-center'>Ajoutez une catégorie
+	</h1>
+	{{ form_start(form) }}
+	<div class=' col-3 mx-auto d-flex flex-column justify-content-center'>
+
+
+		{{ form_row(form.name) }} 
+        {{ form_rest(form) }}
+		<button type="submit" class="btn btn-sm btn-success align-self-center px-3 fs-6">Créer</button>
+
+   
+	</div>
+{% endblock %}

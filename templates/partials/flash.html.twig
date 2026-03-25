@@ -1,0 +1,6 @@
+{% for type, messages in app.flashes %}
+    <div class="w-auto mx-auto py-2 px-5 alert alert-{{ type }} text-center" style="max-width:fit-content">
+
+        {{ messages | join ('.')}}
+    </div>    
+{% endfor %}

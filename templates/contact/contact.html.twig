@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formulaire de contact
+{% endblock %}
+
+{% block body %}
+
+	<h1 class='text-center'>
+		Contactez-nous
+	</h1>
+
+	<div class="col-6 m-auto">
+		{{ form_start(form) }}
+		<div class="row">
+			<div class="col-sm">{{ form_row(form.nom) }}</div>
+			<div class="col-sm">{{ form_row(form.email) }}</div>
+			<div class="col-sm">{{ form_row(form.service) }}</div>
+
+
+		</div>
+
+		{{ form_end(form) }}
+	</div>
+
+
+{% endblock %}
