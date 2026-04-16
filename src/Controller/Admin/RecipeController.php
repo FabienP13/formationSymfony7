@@ -63,12 +63,14 @@ final class RecipeController extends AbstractController
 
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
-
+        
         if($form->isSubmitted() && $form->isValid()){
+            
             $em->flush();
             $this->addFlash('success', 'La recette a bien été modifié');
             return $this->redirectToRoute('admin.recipe.index');
         }
+
         return $this->render('admin/recipe/edit.html.twig', [
             'recipe' => $recipe,
             'form' => $form
