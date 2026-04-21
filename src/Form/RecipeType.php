@@ -26,14 +26,12 @@ use Symfony\Component\Validator\Constraints\Sequentially;
 class RecipeType extends AbstractType
 {
 
-    public function __construct(private FormListenerFactory $listenerFactory)
-    {
-    }
+    public function __construct(private FormListenerFactory $listenerFactory) {}
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title',TextType::class, [
+            ->add('title', TextType::class, [
                 'empty_data' => ''
             ])
             ->add('slug', TextType::class, [
@@ -47,12 +45,17 @@ class RecipeType extends AbstractType
                 'empty_data' => ''
             ])
             ->add('duration')
-            
+
             ->add('quantities', CollectionType::class, [
                 'entry_type' => QuantityType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
+                'attr' => [
+                    
+                    'data-form-collection-add-label-value' => 'Ajouter un ingrédient',
+                    'data-form-collection-delete-label-value' => 'Supprimer l\'ingrédient',
+                ],
                 'by_reference' => false,
             ])
             ->add('save', SubmitType::class, [
