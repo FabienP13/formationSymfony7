@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ recipe.title }}{% endblock %}
+
+{% block body %}
+<div class="container py-4">
+
+    <h1>{{ recipe.title }}</h1>
+
+    {% if recipe.thumbnail %}
+        <img src="{{ vich_uploader_asset(recipe, 'thumbnailFile') }}" alt="{{ recipe.title }}" class="img-fluid w-25 mb-4">
+    {% endif %}
+
+    <ul class="list-unstyled">
+        {% if recipe.category %}
+            <li><strong>Catégorie :</strong> {{ recipe.category.name }}</li>
+        {% endif %}
+        {% if recipe.duration %}
+            <li><strong>Durée :</strong> {{ recipe.duration }} minutes</li>
+        {% endif %}
+        <li><strong>Créée le :</strong> {{ recipe.createdAt | date('d/m/Y') }}</li>
+    </ul>
+
+    <h2>Ingrédients</h2>
+    {% if recipe.quantities is not empty %}
+        <ul>
+            {% for quantity in recipe.quantities %}
+                <li>{{ quantity.quantity }} {{ quantity.unit }} de {{ quantity.ingredient.name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun ingrédient renseigné.</p>
+    {% endif %}
+
+    <h2>Préparation</h2>
+    <p>{{ recipe.content }}</p>
+
+</div>
+{% endblock %}

@@ -14,16 +14,17 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\UX\Turbo\TurboBundle;
+use App\Message\RecipePDFMessage;
+use Symfony\Component\Messenger\Stamp\DelayStamp;
 
 #[Route("/admin/recettes", name:'admin.recipe')]
-
 final class RecipeController extends AbstractController
 {
-
     #[Route('/', name: '.index')] 
     #[IsGranted('RECIPE_LIST')]
     public function index(RecipeRepository $repo, Request $request, Security $security): Response
@@ -59,7 +60,7 @@ final class RecipeController extends AbstractController
     
     #[Route('/{id}', name: '.edit', methods:['GET','POST'], requirements:['id' => Requirement::DIGITS])]
     #[IsGranted('RECIPE_EDIT', subject: 'recipe')]
-    public function edit(Recipe $recipe, Request $request, EntityManagerInterface $em) {
+    public function edit(Recipe $recipe, Request $request, EntityManagerInterface $em, MessageBusInterface $messageBus ) {
 
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
@@ -67,6 +68,7 @@ final class RecipeController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             
             $em->flush();
+            $messageBus->dispatch(new RecipePDFMessage($recipe->getId()));
             $this->addFlash('success', 'La recette a bien été modifié');
             return $this->redirectToRoute('admin.recipe.index');
         }
