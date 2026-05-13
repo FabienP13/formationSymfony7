@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class RecipeController extends AbstractController
 {
-    #[Route('/recettes/{id}/', name: '.show', requirements: ['id' => Requirement::DIGITS])]
+    #[Route('/recettes/{id}/', name: 'recipe.show', requirements: ['id' => Requirement::DIGITS])]
     public function show(Recipe $recipe): Response
     {
         return $this->render('recipe/view.html.twig', [
