@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function Symfony\Component\Translation\t;
 
 class ContactType extends AbstractType
 {
@@ -18,13 +19,13 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'label' => 'Nom',
+                'label' => t('Nom'),
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email',
+                'label' => t('Email'),
             ])
             ->add('message', TextareaType::class, [
-                'label' => 'Message',
+                'label' => t('Message'),
             ])
             ->add('service', ChoiceType::class, [
                 'choices'  => [
@@ -34,7 +35,6 @@ class ContactType extends AbstractType
                 ],
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Envoyer',
                 'attr' => ['class' => 'btn-success']
             ]);;
     }

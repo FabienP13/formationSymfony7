@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Translatable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Attribute\Groups;
@@ -38,6 +39,7 @@ class Recipe
     #[Assert\Length(min:5)]
     #[BanWord()]
     #[Groups(['recipe.index','recipes.create'])]
+    #[Translatable]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]

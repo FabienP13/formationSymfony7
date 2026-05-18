@@ -6,6 +6,7 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Translatable;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -20,6 +21,7 @@ class Category
     #[ORM\Column(length: 70)]
     #[Assert\Length(min:5)]
     #[Groups(['recipe.show'])]
+    #[Translatable]
     private ?string $name = null;
 
     #[Assert\Length(min:5)]
