@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LiveComponenentController!{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            {{ component('ReservationForm') }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
