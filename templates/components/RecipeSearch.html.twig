@@ -1,20 +1,40 @@
-<div>
-    <input
-        type="search"
-        data-model="query"
-        class="form-control"
-        placeholder="Rechercher une recette..."
-    >
+<div {{ attributes }} style="position: relative;">
+    <style>
+        .recipe-search-item:hover {
+            background-color: #f8f9fa;
+        }
+        .recipe-search-item:last-child {
+            border-bottom: none !important;
+        }
+    </style>
+    <div class="d-flex">
+        <input 
+            data-model="query"
+            class="form-control me-2" 
+            type="search" 
+            placeholder="Rechercher une recette..." 
+            autocomplete="off"
+            aria-label="Search"
+        />
+    </div>
 
-    {% if this.recipes is not empty %}
-        <ul class="list-group mt-2">
-            {% for recipe in this.recipes %}
-                <li class="list-group-item">
-                    <a href="{{ path('admin.recipe.edit', {id: recipe.id}) }}">
+    {% if query|length >= 2 %}
+        <div class="position-absolute bg-white border rounded shadow-sm w-100" style="z-index: 1000; top: 100%;">
+            {% set recipes = this.recipes %}
+            {% if recipes|length > 0 %}
+                {% for recipe in recipes %}
+                    <a href="{{ path('admin.recipe.edit', {id: recipe.id}) }}" 
+                       class="d-block px-3 py-2 text-decoration-none text-dark border-bottom recipe-search-item">
                         {{ recipe.title }}
+                        {% if recipe.category %}
+                            <small class="text-muted"> — {{ recipe.category.name }}</small>
+                        {% endif %}
                     </a>
-                </li>
-            {% endfor %}
-        </ul>
+                {% endfor %}
+            {% else %}
+                <div class="px-3 py-2 text-muted">Aucune recette trouvée</div>
+            {% endif %}
+        </div>
     {% endif %}
 </div>
+

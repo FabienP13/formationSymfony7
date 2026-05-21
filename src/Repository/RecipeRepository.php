@@ -66,6 +66,29 @@ class RecipeRepository extends ServiceEntityRepository
                     ->getQuery()
                     ->getSingleScalarResult();
     }
+    public function searchByTitle(string $query): array
+    {
+        return $this->createQueryBuilder('r')
+            ->leftJoin('r.category', 'c')
+            ->select('r', 'c')
+            ->where('r.title LIKE :query')
+            ->setParameter('query', '%' . $query . '%')
+            ->orderBy('r.title', 'ASC')
+            ->setMaxResults(20)
+            ->getQuery()
+            ->getResult();
+    }
+
+    // public function searchByTitle(string $query): array
+    // {
+    //     return $this->createQueryBuilder('r')
+    //         ->where('r.title LIKE :query')
+    //         ->setParameter('query', '%' . $query . '%')
+    //         ->orderBy('r.title', 'ASC')
+    //         ->setMaxResults(8)
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 //    /**
 //     * @return Recipe[] Returns an array of Recipe objects
 //     */

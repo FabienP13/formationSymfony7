@@ -8,7 +8,7 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
 #[AsLiveComponent]
-class RecipeSearch
+class RecipeSearchTable
 {
     use DefaultActionTrait;
 
@@ -26,5 +26,10 @@ class RecipeSearch
         }
 
         return $this->recipeRepository->searchByTitle($this->query);
+    }
+
+    public function isSearching(): bool
+    {
+        return strlen($this->query) >= 2;
     }
 }
