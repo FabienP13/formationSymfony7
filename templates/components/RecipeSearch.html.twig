@@ -23,7 +23,7 @@
             {% set recipes = this.recipes %}
             {% if recipes|length > 0 %}
                 {% for recipe in recipes %}
-                    <a href="{{ path('admin.recipe.edit', {id: recipe.id}) }}" 
+                    <a href="{{ path('recipe.show', {id: recipe.id}) }}" 
                        class="d-block px-3 py-2 text-decoration-none text-dark border-bottom recipe-search-item">
                         {{ recipe.title }}
                         {% if recipe.category %}
